@@ -1,11 +1,16 @@
-import React, { useContext, useState } from 'react'
-import { TodoContext } from '../../Context'
+import { useState } from 'react'
+
 import './TodoForm.less'
 import '../../styles/variables.less'
 
-export default function TodoForm() {
+interface props {
+  onOpenModal: () => void
+  addTodo: (text: string) => void
+  darkMode: boolean
+}
 
-  const { onOpenModal, addTodo, darkMode} = useContext(TodoContext)
+export default function TodoForm({ onOpenModal, addTodo, darkMode}: props) {
+
   const [textValue, setTextValue] = useState('')
 
   const submit = () => {

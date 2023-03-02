@@ -7,10 +7,10 @@ import Header from './Components/Header/Header'
 import './App.less'
 import './styles/variables.less'
 
-import { TodoContext } from './Context'
-import { useContext } from 'react'
+import { useTodos } from './Hooks/useTodos'
 import Modal from './Components/Modal/Modal'
 import TodoForm from './Components/TodoForm/TodoForm'
+import TodoSearch from './Components/TodoSearch/TodoSearch'
 
 function App() {
 
@@ -18,13 +18,33 @@ function App() {
     showTodos,
     completeTodo,
     deleteTodo,
+    searchValue,
+    setSearchValue,
+    onHideComplete,
+    hiden,
+    onDarkMode,
+    darkMode,
+    percentage,
+    onOpenModal,
     openModal,
-    darkMode
-  } = useContext(TodoContext)
+    addTodo
+  } = useTodos()
 
   return (
     <div className={`container ${darkMode ? 'darkMode' : 'lightMode'}`}>
-      <Header />
+      
+      <Header
+        onHideComplete={onHideComplete}
+        hiden={hiden}
+        onDarkMode={onDarkMode}
+        darkMode={darkMode}
+      >
+        <TodoSearch 
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
+      </Header>
+      
       <TodoList>
         {
           showTodos.map((todo, index) => 
@@ -38,13 +58,22 @@ function App() {
           )
         }
       </TodoList>
-      <TodoCount />
-      <AddButton />
+
+      <TodoCount percentage={percentage}/>
+
+      <AddButton
+        onOpenModal={onOpenModal}
+        openModal={openModal}
+      />
 
       {
         openModal &&
         <Modal>
-          <TodoForm />
+          <TodoForm
+            onOpenModal={onOpenModal}
+            addTodo={addTodo}
+            darkMode={darkMode}
+          />
         </Modal>
       }
     </div>

@@ -3,15 +3,13 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import './TodoSearch.less'
-import { TodoContext } from '../../Context'
 
+interface props {
+  searchValue: string
+  setSearchValue: (text: string) => void
+}
 
-export default function TodoSearch() {
-
-  const {
-    searchValue,
-    setSearchValue
-  } = useContext(TodoContext)
+export default function TodoSearch({searchValue, setSearchValue}: props) {
 
   return (
     <section className='search'>

@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-import useLocalStorage from '../Hooks/useLocalStorage'
+import useLocalStorage from './useLocalStorage'
 
 interface TodoContextValue {
   showTodos: todo[];
@@ -42,7 +42,7 @@ type todo = {
   completed: boolean
 }
 
-function TodoProvider({children}: props) {
+function useTodos() {
 
   const initialVal = [
     {text: 'Esta tarea es una demo', completed: false},
@@ -94,8 +94,7 @@ function TodoProvider({children}: props) {
     setDarkMode(!darkMode)
   }
 
-  return (
-    <TodoContext.Provider value={{
+  return {
       showTodos,
       percentage,
       deleteTodo,
@@ -109,10 +108,7 @@ function TodoProvider({children}: props) {
       openModal,
       onDarkMode: changeMode,
       darkMode
-    }}>
-      {children}
-    </TodoContext.Provider>
-  )
+    }
 }
 
-export { TodoContext, TodoProvider }
+export { useTodos }

@@ -1,10 +1,7 @@
-import { useContext } from 'react'
-import { TodoContext } from '../../Context'
 import './TodoCount.less'
 
-export default function TodoCount() {
+export default function TodoCount({ percentage }: {percentage: number}) {
 
-  const { percentage } = useContext(TodoContext)
 
   return (
     <span className='change-bar' >

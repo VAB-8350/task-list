@@ -3,21 +3,26 @@ import { faChevronLeft, faSun, faMoon, faEye, faEyeSlash} from '@fortawesome/fre
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import './Header.less'
-import { useContext } from "react"
-import { TodoContext } from "../../Context"
+import { ReactNode } from "react"
 
+interface props {
+  onHideComplete: () => void
+  hiden: boolean
+  onDarkMode: () => void
+  darkMode: boolean
+  children: ReactNode
+}
 
-export default function Header() {
-  
-  const {
-    onHideComplete,
-    hiden,
-    onDarkMode,
-    darkMode
-  } = useContext(TodoContext)
+export default function Header({
+  onHideComplete,
+  hiden,
+  onDarkMode,
+  darkMode,
+  children
+}: props) {
  
   return (
-    <div className="header">
+    <header className="header">
 
       <section>
         <h1>
@@ -30,7 +35,7 @@ export default function Header() {
         </button>
       </section>
 
-      <TodoSearch />
+      {children}
 
       <span onClick={onHideComplete}>
         Tareas completadas
@@ -40,6 +45,6 @@ export default function Header() {
             : <FontAwesomeIcon icon={faEye} className='icon' />
         }
       </span>
-    </div>
+    </header>
   )
 }
