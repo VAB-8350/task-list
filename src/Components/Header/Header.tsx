@@ -21,8 +21,8 @@ export default function Header() {
 
       <section>
         <h1>
-          <FontAwesomeIcon icon={faChevronLeft} />
-          Tasks...
+          {/* <FontAwesomeIcon icon={faChevronLeft} /> */}
+          Mis Tareas
         </h1>
 
         <button onClick={onDarkMode}>
@@ -33,7 +33,7 @@ export default function Header() {
       <TodoSearch />
 
       <span onClick={onHideComplete}>
-        Complete Tasks
+        Tareas completadas
         {
           hiden
             ? <FontAwesomeIcon icon={faEyeSlash} className='icon' />

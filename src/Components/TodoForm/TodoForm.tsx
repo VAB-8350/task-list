@@ -15,7 +15,7 @@ export default function TodoForm() {
 
   return (
     <div className={`container-modal general ${darkMode ? 'darkMode' : 'lightMode'}`}>
-      <label htmlFor="task">New task</label>
+      <label htmlFor="task">Nueva tarea</label>
       <textarea
         value={textValue}
         onChange={(e) => setTextValue(e.target.value)}
@@ -27,8 +27,8 @@ export default function TodoForm() {
       />
 
       <div className='container-btn'>
-        <button className='btn-cancel' onClick={onOpenModal}>cancelar</button>
-        <button className='btn-submit' onClick={submit} disabled={textValue.length === 0}>aceptar</button>
+        <button className='btn-cancel' onClick={onOpenModal}>Cancelar</button>
+        <button className='btn-submit' onClick={submit} disabled={textValue.length === 0}>Aceptar</button>
       </div>
     </div>
   )

@@ -18,7 +18,7 @@ export default function TodoSearch() {
       <input
         type="text"
         value={searchValue}
-        placeholder='Pasear al perro'
+        placeholder='Pasear el perro'
         onChange={(e) => setSearchValue(e.target.value)}
       />
       <FontAwesomeIcon icon={faSearch} className='icon' />
