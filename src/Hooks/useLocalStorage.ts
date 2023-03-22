@@ -1,26 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function useLocalStorage<interf>(itemName: string, initialVal: interf):[interf, (newItem: interf) => void] {
+export default function useLocalStorage<interf>(itemName: string, initialVal: interf):{item: interf, saveItem: (newItem: interf) => void, sincronize: () => void} {
 
-  const localStorageItem = localStorage.getItem(itemName)
-
+  // Local State
   let parsedItem: interf = initialVal
+  const [item, setItem] = useState<interf>(parsedItem)
+  const [sincronized, setSincronize] = useState(true)
 
-  localStorageItem
-   ? parsedItem = JSON.parse(localStorageItem)
-   : localStorage.setItem(itemName, JSON.stringify(parsedItem))
+  useEffect(() => {
 
-   // Local State
-  const [item, setItem] = useState<interf>(parsedItem);
+    const localStorageItem = localStorage.getItem(itemName)
+    
+    localStorageItem
+    ? parsedItem = JSON.parse(localStorageItem)
+    : localStorage.setItem(itemName, JSON.stringify(parsedItem))
+    
+    saveItem(parsedItem)
+    setSincronize(true)
 
+  }, [sincronized])
 
   const saveItem = (newItem: interf) => {
     localStorage.setItem(itemName, JSON.stringify(newItem))
     setItem(newItem)
   }
 
-  return [
+  const sincronize = () => {
+    setSincronize(false)
+  }
+
+  return {
     item,
-    saveItem
-  ]
+    saveItem,
+    sincronize
+  }
 }

@@ -11,6 +11,7 @@ import { useTodos } from './Hooks/useTodos'
 import Modal from './Components/Modal/Modal'
 import TodoForm from './Components/TodoForm/TodoForm'
 import TodoSearch from './Components/TodoSearch/TodoSearch'
+import ChangeWithStorageListener from './Components/ChangeStorage/ChangeStorage'
 
 function App() {
 
@@ -27,7 +28,9 @@ function App() {
     percentage,
     onOpenModal,
     openModal,
-    addTodo
+    addTodo,
+    sincInfo,
+    sincTheme
   } = useTodos()
 
   return (
@@ -76,6 +79,11 @@ function App() {
           />
         </Modal>
       }
+
+      <ChangeWithStorageListener 
+        sincInfo={sincInfo}
+        sincTheme={sincTheme}
+      />
     </div>
   )
 }

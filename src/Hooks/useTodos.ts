@@ -1,41 +1,5 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import useLocalStorage from './useLocalStorage'
-
-interface TodoContextValue {
-  showTodos: todo[];
-  percentage: number;
-  deleteTodo: (index: number) => void;
-  completeTodo: (index: number) => void;
-  searchValue: string;
-  setSearchValue: (value: string) => void;
-  onHideComplete: () => void;
-  hiden: boolean;
-  openModal: boolean
-  onOpenModal: () => void
-  addTodo: (text: string) => void
-  onDarkMode: () => void
-  darkMode: boolean
-}
-
-const TodoContext = createContext<TodoContextValue>({
-  showTodos: [],
-  percentage: 0,
-  deleteTodo: () => {},
-  completeTodo: () => {},
-  searchValue: "",
-  setSearchValue: () => {},
-  onHideComplete: () => {},
-  hiden: false,
-  openModal: false,
-  onOpenModal: () => {},
-  addTodo: () => {},
-  onDarkMode: () => {},
-  darkMode: true
-});
-
-interface props {
-  children: ReactNode
-}
 
 type todo = {
   text: string
@@ -50,8 +14,16 @@ function useTodos() {
   ]
 
   // Hooks
-  const [todos, saveTodos] = useLocalStorage<todo[]>('TODOS_V1', initialVal)
-  const [modeDark, saveModeDark] = useLocalStorage<boolean>('MODO_V1',true)
+  const {
+    item : todos,
+    saveItem: saveTodos,
+    sincronize: sincInfo
+  } = useLocalStorage<todo[]>('TODOS_V1', initialVal)
+  const {
+    item : modeDark,
+    saveItem: saveModeDark,
+    sincronize: sincTheme
+  } = useLocalStorage<boolean>('MODO_V1',true)
 
   // Local State
   const [searchValue, setSearchValue] = useState('');
@@ -62,7 +34,6 @@ function useTodos() {
   // Constants
   const percentage = todos.filter((t: todo) => t.completed).length * 100 / todos.length
   
-  // Typescript
   let showTodos: todo[] = []
 
   hideComplete
@@ -72,6 +43,7 @@ function useTodos() {
   !(searchValue.length > 0)
     ? showTodos = showTodos
     : showTodos = showTodos.filter((t: todo) => t.text.toLowerCase().includes(searchValue.toLowerCase()))
+
 
   //Methods
   const completeTodo = (index: number) => {
@@ -107,7 +79,9 @@ function useTodos() {
       onOpenModal: () => setOpenModal(!openModal),
       openModal,
       onDarkMode: changeMode,
-      darkMode
+      darkMode,
+      sincInfo,
+      sincTheme
     }
 }
 
